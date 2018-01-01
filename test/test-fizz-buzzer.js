@@ -7,46 +7,36 @@ const fizzBuzzer = require('../fizzBuzzer');
 describe('fizzBuzzer', function () {
 
     // test the normal case
-    it('should add two numbers', function () {
-        // range of normal inputs, including
-        // notable cases like negative answers
-        const normalCases = [
-            {
-                a: 2,
-                b: 3,
-                expected: 5
-            },
-            {
-                a: 200,
-                b: 2000,
-                expected: 2200
-            },
-            {
-                a: 2,
-                b: -5,
-                expected: -3
-            }
-        ];
-        // for each set of inputs (a, b), `adder` should
-        // produce the expected value
-        normalCases.forEach(function (input) {
-            const answer = adder(input.a, input.b);
-            answer.should.equal(input.expected);
+    it('should return "fizz-buzz" if it\'s a multiple of 15', function () {
+        [15, 30, 45, 60].forEach(function (input) {
+            fizzBuzzer(input).should.equal('fizz-buzz');
         });
     });
 
-    it('should raise error if args not numbers', function () {
-        // range of bad inputs where not both are numbers
-        const badInputs = [
-            ['a', 1],
-            ['1', 2],
-            [2, false]
-        ];
-        // prove that an error is raised for bad inputs
+    it('should return "buzz" if it\'s a multiple of 5', function () {
+        [5, 10, 15, 20].forEach(function (input) {
+            fizzBuzzer(input).should.equal('buzz');
+        });
+    });
+
+    it('should return "fizz" if it\'s a multiple of 3', function () {
+        [3, 6, 9, 12].forEach(function (input) {
+            fizzBuzzer(input).should.equal('fizz');
+        });
+    });
+
+    it('should return number if it\'s not a multiple of 3 or 5', function () {
+        [1, 2, 7, 11].forEach(function (input) {
+            fizzBuzzer(input).should.equal('input');
+        });
+    });
+
+    it('should produce an error if input isn\'t a number', function () {
+        const badInputs = [true, false, 'cat', function () {}, [1, 2, 3]]
         badInputs.forEach(function (input) {
             (function () {
-                adder(input[0], input[1])
-            }).should.throw(Error);
+                fizzBuzzer(input)
+            }).should.throw(error)
         });
     });
 });
